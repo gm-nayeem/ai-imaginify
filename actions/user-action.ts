@@ -8,8 +8,10 @@ import { handleError } from "@/lib/utils";
 
 // CREATE
 export async function createUser(user: CreateUserParams) {
+    console.log('user: create', user)
     try {
         await connectToDatabase();
+
 
         const newUser = await User.create(user);
 
