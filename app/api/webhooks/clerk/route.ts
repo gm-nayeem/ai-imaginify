@@ -55,8 +55,6 @@ export async function POST(req: Request) {
         });
     }
 
-    console.log('router event: ', evt.data);
-
     // Get the ID and type
     const { id } = evt.data;
     const eventType = evt.type;
