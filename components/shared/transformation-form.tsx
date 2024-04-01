@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState, useTransition } from "react";
+import { getCldImageUrl } from "next-cloudinary";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,16 +32,14 @@ import {
   defaultValues,
   transformationTypes,
 } from "@/constants";
+
 import { CustomField } from "./custom-field";
-import { useEffect, useState, useTransition } from "react";
-import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 import MediaUploader from "./media-uploader";
-import TransformedImage from "./transformation-image";
+import TransformedImage from "./transformed-image";
 import { updateCredits } from "@/actions/user-action";
-import { getCldImageUrl } from "next-cloudinary";
 import { addImage, updateImage } from "@/actions/image-action";
-import { useRouter } from "next/navigation";
 import { InsufficientCreditsModal } from "../modal/insufficient-credits-modal";
+import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -211,6 +212,7 @@ const TransformationForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
+
         <CustomField
           control={form.control}
           name="title"
@@ -304,22 +306,22 @@ const TransformationForm = ({
             className="flex size-full flex-col"
             render={({ field }) => (
               <MediaUploader
-              // onValueChange={field.onChange}
-              // setImage={setImage}
-              // publicId={field.value}
-              // image={image}
-              // type={type}
+                onValueChange={field.onChange}
+                setImage={setImage}
+                publicId={field.value}
+                image={image}
+                type={type}
               />
             )}
           />
 
           <TransformedImage
-          // image={image}
-          // type={type}
-          // title={form.getValues().title}
-          // isTransforming={isTransforming}
-          // setIsTransforming={setIsTransforming}
-          // transformationConfig={transformationConfig}
+            image={image}
+            type={type}
+            title={form.getValues().title}
+            isTransforming={isTransforming}
+            setIsTransforming={setIsTransforming}
+            transformationConfig={transformationConfig}
           />
         </div>
 
