@@ -35,9 +35,9 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams) {
         mode: 'payment',
         success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
         cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
-    })
+    });
 
-    redirect(session.url!)
+    redirect(session.url!);
 }
 
 export async function createTransaction(transaction: CreateTransactionParams) {
@@ -46,8 +46,9 @@ export async function createTransaction(transaction: CreateTransactionParams) {
 
         // Create a new transaction with a buyerId
         const newTransaction = await Transaction.create({
-            ...transaction, buyer: transaction.buyerId
-        })
+            ...transaction,
+            buyer: transaction.buyerId
+        });
 
         await updateCredits(transaction.buyerId, transaction.credits);
 
