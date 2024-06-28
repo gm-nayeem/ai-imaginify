@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { clerkClient } from "@clerk/nextjs";
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { Webhook } from "svix";
+import { clerkClient } from "@clerk/nextjs";
+import { WebhookEvent } from "@clerk/nextjs/server";
 
 import {
     createUser, deleteUser, updateUser
@@ -117,8 +117,8 @@ export async function POST(req: Request) {
         return NextResponse.json({ message: "OK", user: deletedUser });
     }
 
-    console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-    console.log("Webhook body:", body);
+    // console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+    // console.log("Webhook body:", body);
 
     return new Response("", { status: 200 });
 }

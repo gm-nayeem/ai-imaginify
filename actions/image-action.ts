@@ -8,14 +8,13 @@ import Image from '@/models/Image';
 import { connectToDatabase } from "@/config/dbConn";
 import { handleError } from "@/lib/utils";
 
-
-import { v2 as cloudinary } from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary';
 
 const populateUser = (query: any) => query.populate({
     path: 'author',
     model: User,
     select: '_id firstName lastName clerkId'
-})
+});
 
 // ADD IMAGE
 export async function addImage({ image, userId, path }: AddImageParams) {
@@ -31,7 +30,7 @@ export async function addImage({ image, userId, path }: AddImageParams) {
         const newImage = await Image.create({
             ...image,
             author: author._id,
-        })
+        });
 
         revalidatePath(path);
 
@@ -56,7 +55,7 @@ export async function updateImage({ image, userId, path }: UpdateImageParams) {
             imageToUpdate._id,
             image,
             { new: true }
-        )
+        );
 
         revalidatePath(path);
 
@@ -108,7 +107,7 @@ export async function getAllImages({ limit = 6, page = 1, searchQuery = '' }: {
             api_key: process.env.CLOUDINARY_API_KEY,
             api_secret: process.env.CLOUDINARY_API_SECRET,
             secure: true,
-        })
+        });
 
         let expression = 'folder=imaginify';
 
